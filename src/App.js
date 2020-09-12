@@ -1,26 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import BudgetPlanner from './components/budget-planner/BudgetPlanner';
+import OAuth from './components/sign-in/OAuth';
 
-function App() {
+const App = () => {
+  const [ username, setUsername ] = useState(null);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {
+        username ?
+          <BudgetPlanner userName={username}></BudgetPlanner> :
+          <OAuth login={username => setUsername(username)}></OAuth>
+      }
     </div>
   );
-}
+};
 
 export default App;
