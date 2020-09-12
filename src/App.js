@@ -1,17 +1,19 @@
-import React, {useState} from 'react';
+import React, {useContext} from 'react';
 import './App.css';
 import BudgetPlanner from './components/budget-planner/BudgetPlanner';
 import OAuth from './components/sign-in/OAuth';
+import {AuthContext} from './hooks/AuthHook';
 
 const App = () => {
-  const [ username, setUsername ] = useState(null);
+  const [authState] = useContext(AuthContext);
+
   return (
     <div className="App">
-      {
-        username ?
-          <BudgetPlanner userName={username}></BudgetPlanner> :
-          <OAuth login={username => setUsername(username)}></OAuth>
-      }
+        {
+          authState.user ?
+            <BudgetPlanner userName={authState.user.givenName}></BudgetPlanner> :
+            <OAuth></OAuth>
+        }
     </div>
   );
 };

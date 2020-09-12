@@ -1,14 +1,20 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import GoogleLogin from 'react-google-login';
 import {GOOGLE_OAUTH_CLIENT_ID} from '../../credentials';
+import {AuthContext} from '../../hooks/AuthHook';
+import {SET_USER} from '../../hooks/ReducerActions';
 
-export default ({ login }) => {
+export default () => {
+  const [authState, authDispatch] = useContext(AuthContext);
+
   const onOAuthSuccess = (response) => {
     if (response.profileObj && response.profileObj.name) {
-      login(response.profileObj.name);
-    } else {
-      console.log('Name not found using default');
-      login('User');
+      authDispatch({
+        type: SET_USER,
+        payload: {
+          user: response.profileObj
+        }
+      });
     }
   };
 
