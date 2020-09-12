@@ -1,4 +1,5 @@
 Development:
+ - Run **yarn add** to add dependencies.
  - Run **yarn start** to start dev mode.
 
 Production Prerequisites:
